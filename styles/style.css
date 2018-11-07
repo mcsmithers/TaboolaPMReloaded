@@ -60,9 +60,10 @@ tr.detail-row .close {
 }
 
 #searchbox {
-    max-width: 30%;
-    float: right;
-    padding-right: 10px;
+    max-width: 50%;
+    right: 0;
+    margin-right: 5px;
+    position: absolute;
 }
 
 .line-chart {
@@ -124,7 +125,7 @@ tr.detail-row .close {
  
   /* Make the primary row stand out */
 .tablesorter tbody tr.summary td {
-    background: #d7e5f3;
+    /* background: #d7e5f3; */
     color: black;
 }
 
@@ -206,4 +207,5 @@ tr.detail-row .close {
 
 body {
     background-image: url(https://media.giphy.com/media/Y0cKnGMCBTNTi/giphy.gif);
+    z-index: 1;
   }

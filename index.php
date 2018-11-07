@@ -23,7 +23,7 @@ define("SCRIPT_ROOT", "http://localhost:8000/tools/");
   <link rel="stylesheet" href="https://tapstone.com/tools/foundation-icons/foundation-icons.css" />
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/foundation-datepicker/1.5.6/css/foundation-datepicker.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/TableExport/5.0.0/css/tableexport.min.css">
-  <link rel="stylesheet" href="https://rawgit.com/Mottie/tablesorter/master/css/theme.blue.css">
+  <link rel="stylesheet" href="https://rawgit.com/Mottie/tablesorter/master/css/theme.default.css">
   <link rel="stylesheet" href="./styles/style.css">
 
   <!-- scripts -->
@@ -61,7 +61,6 @@ define("SCRIPT_ROOT", "http://localhost:8000/tools/");
       vertical-align: text-top;
       padding: 0 0 0 10px;
     }
-
   </style>
 
   <style type="text/css">
@@ -123,22 +122,24 @@ define("SCRIPT_ROOT", "http://localhost:8000/tools/");
           <div class="spinner"></div>
         </div>
       </table>
-      <div id="buttons">
-        <button class="button" id="first" data-id="first">
-          First Page
-        </button>
-        <button class="button" id="previous-button" data-id="previous">
-          Prev
-        </button>
-        <button class="button" id="next-button" data-id="next">
-          Next
-        </button>
-        <button class="button" id="last" data-id="last">
-          Last Page
-        </button>
-        <button id="all-button" class="button primary" data-id="all">
-          Show All
-        </button>
+      <div class="small-6 columns">
+        <div id="buttons">
+          <button class="button" id="first" data-id="first">
+            First Page
+          </button>
+          <button class="button" id="previous-button" data-id="previous">
+            Prev
+          </button>
+          <button class="button" id="next-button" data-id="next">
+            Next
+          </button>
+          <button class="button" id="last" data-id="last">
+            Last Page
+          </button>
+          <button id="all-button" class="button primary" data-id="all">
+            Show All
+          </button>
+        </div>
       </div>
     </div>
 
