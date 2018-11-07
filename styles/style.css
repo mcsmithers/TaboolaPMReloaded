@@ -39,45 +39,6 @@
     /* width: 50%; */
 }
 
-tr.group {
-    border-bottom: #777 1px solid;
-    border-top: #777 1px solid;
-    font-weight: bold;
-}
-
-td.group {
-    transition: none;
-}
-
-button.showDetails {
-    background-color: #2ba6cb;
-    /* display: none; */
-    padding: 7px;
-    margin: 5px;
-    cursor: pointer;
-    -webkit-transition-duration: .4s;
-    -moz-transition-duration: .4s;
-    -o-transition-duration: .4s;
-    transition-duration: .4s;
-    -webkit-transition-property: -webkit-transform;
-    -moz-transition-property: -moz-transform;
-    -o-transition-property: -o-transform;
-    transition-property: transform;
-    border-radius: 50%
-}
-
-button.showDetails:focus {
-    outline: 0;
-}
-
-.dateCol {
-    white-space: nowrap;
-}
-
-.pmCol {
-    white-space: nowrap;
-}
-
 tr.detail-row .open {
     transition: none;
 }
@@ -85,14 +46,6 @@ tr.detail-row .open {
 tr.detail-row .close {
     transition: none;
 }
-
-/* tr.detail-row.odd {
-    background-color: #f8f8f8;
-}
-
-tr.detail-row.even {
-    background-color: white;
-} */
 
 #nav a {
     padding: 3px;
@@ -118,7 +71,8 @@ tr.detail-row.even {
 
 .summary td {
     font-weight: bold;
-    /* background-color: lightgrey; */
+    border-bottom: #777;
+    border-top: #777;
     cursor: pointer;
 }
 
@@ -174,18 +128,16 @@ tr.detail-row .close {
     color: black;
 }
 
-*/
-
 /* dark border to make each tbody distinct */
-#table tbody tr.main td {
+#table tbody tr.summary td {
     border-top: 1px solid #777;
-    /* main row is clickable; toggle sibling/child rows */
     cursor: pointer;
 }
 
 .disabled {
     color: gray;
 }
+
 
 #table {
     margin: 5px;
@@ -250,3 +202,8 @@ tr.detail-row .close {
 #all-button{
     margin-left: 5px;
 }
+
+
+body {
+    background-image: url(https://media.giphy.com/media/Y0cKnGMCBTNTi/giphy.gif);
+  }

@@ -11,16 +11,14 @@ define("SCRIPT_ROOT", "http://localhost:8000/tools/");
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Taboola True PM Reloaded</title>
+  <title>Taboola True PM Tool</title>
 
-  <!-- jquery -->
-  <!-- <script src="https://tapstone.com/tools/js/vendor/jquery.js"></script> -->
-  <script src='https://cdn.jsdelivr.net/g/lodash@4(lodash.min.js+lodash.fp.min.js)'></script>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-
+  <!-- jquery and lodash-->
+  <script src="https://tapstone.com/tools/js/vendor/jquery.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.1.0/lodash.min.js"></script>
 
   <!-- styles -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+  <link rel="stylesheet" href="https://tapstone.com/tools/css/jquery-ui.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/css/foundation.min.css">
   <link rel="stylesheet" href="https://tapstone.com/tools/foundation-icons/foundation-icons.css" />
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/foundation-datepicker/1.5.6/css/foundation-datepicker.css" />
@@ -36,7 +34,6 @@ define("SCRIPT_ROOT", "http://localhost:8000/tools/");
   <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation-datepicker/1.5.6/js/foundation-datepicker.min.js"></script>
   <!-- moar styling and ui stuff -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/js/foundation.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
   <!-- d3 crap to draw and export-->
   <script src="https://d3js.org/d3.v5.js"></script>
   <script src="https://d3js.org/d3-collection.v1.min.js"></script>
@@ -56,9 +53,16 @@ define("SCRIPT_ROOT", "http://localhost:8000/tools/");
   <script src="./scripts/main.js"></script>
 
 
-</head>
-
 <body>
+
+  <style type="text/css">
+    #barLogo {
+      max-width: 160px;
+      vertical-align: text-top;
+      padding: 0 0 0 10px;
+    }
+
+  </style>
 
   <style type="text/css">
     .ui-autocomplete {
@@ -77,70 +81,69 @@ define("SCRIPT_ROOT", "http://localhost:8000/tools/");
   <br />
 
   <div class="row expanded">
-    <div class="row">
-      <div class="large-12 columns">
-        <div class="callout">
-          <h3> Taboola True PM Reloaded Tool</h3>
-          <p>Make reports for a chosen range of dates.</p>
-          <p style="display: inline-block; margin: 5px;">Data ready from Netsphere?
-            <div style="display: inline-block; margin: 5px;" id="netsphereStatus"></div>
-          </p>
-        </div>
+    <div class="row"> </div>
+    <div class="large-12 columns">
+      <div class="callout">
+        <h3>Taboola Reloaded Tool</h3>
+        <p>Make reports for a chosen range of dates.</p>
+        <p style="display: inline-block; margin: 5px;">Data ready from Netsphere?
+          <div style="display: inline-block; margin: 5px;" id="netsphereStatus"></div>
+        </p>
       </div>
     </div>
-    <div class="row">
-      <div class="large-12 columns">
-        <div class="callout" id="error-box">
-          <div id="errorContainer"></div>
+  </div>
+  <div class="row">
+    <div class="large-12 columns">
+      <div class="callout" id="error-box">
+        <div id="errorContainer"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="large-12 columns" id="date-pickers">
+      <form>
+        <div class="small-4 large-2 columns" id="start-date-box">
+          <label for="start-date" class="text-right left">Start Date</label>
+          <input type="text" id="start-date">
         </div>
+        <div class="small-4 large-2 columns" id="end-date-box">
+          <label for="end-date" class="text-right left">End Date</label>
+          <input type="text" id="end-date">
+        </div>
+        <div class="small-4 large-4 columns"></div>
+      </form>
+    </div>
+  </div>
+  <div class="row" style="width: 100%;">
+    <div class="large-12 columns">
+      <div id="table-wrapper"></div>
+      <table id="table" class="tablesorter-blue">
+        <div class="loader">
+          <div class="spinner"></div>
+        </div>
+      </table>
+      <div id="buttons">
+        <button class="button" id="first" data-id="first">
+          First Page
+        </button>
+        <button class="button" id="previous-button" data-id="previous">
+          Prev
+        </button>
+        <button class="button" id="next-button" data-id="next">
+          Next
+        </button>
+        <button class="button" id="last" data-id="last">
+          Last Page
+        </button>
+        <button id="all-button" class="button primary" data-id="all">
+          Show All
+        </button>
       </div>
     </div>
 
-    <div class="row">
-      <div class="large-12 columns" id="date-pickers">
-        <form>
-          <div class="small-4 large-2 columns" id="start-date-box">
-            <label for="start-date" class="text-right left">Start Date</label>
-            <input type="text" id="start-date">
-          </div>
-          <div class="small-4 large-2 columns" id="end-date-box">
-            <label for="end-date" class="text-right left">End Date</label>
-            <input type="text" id="end-date">
-          </div>
-          <div class="small-4 large-4 columns"></div>
-        </form>
-      </div>
-    </div>
-
-    <div class="row" style="width: 100%;">
-      <div class="large-12 columns">
-        <div id="table-wrapper"></div>
-          <table id="table" class="tablesorter-blue">
-            <div class="loader">
-              <div class="spinner"></div>
-            </div>
-          </table>
-          <div id="buttons">
-          <button class="button" id="first" data-id="first">
-              First Page
-            </button>
-            <button class="button" id="previous-button" data-id="previous">
-              Prev
-            </button>
-            <button class="button" id="next-button" data-id="next">
-              Next 
-            </button>
-            <button class="button" id="last" data-id="last">
-              Last Page
-            </button>   
-            <button id="all-button" class="button hollow" data-id="all">
-              Show All
-            </button>
-          </div>
-        </div>
-
-      </div>
-    </div>
+  </div>
+  </div>
   </div>
 
   </div>
@@ -152,5 +155,8 @@ define("SCRIPT_ROOT", "http://localhost:8000/tools/");
 
 
 </body>
+<script src="/tools/js/vendor/what-input.js"></script>
+<script src="/tools/js/vendor/foundation.js"></script>
+<script src="/tools/js/app.js"></script>
 
 </html>
