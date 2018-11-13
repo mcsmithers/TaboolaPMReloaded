@@ -38,6 +38,7 @@ define("SCRIPT_ROOT", "http://localhost:8000/tools/");
     <script src="https://d3js.org/d3.v5.js"></script>
     <script src="https://d3js.org/d3-collection.v1.min.js"></script>
     <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.14.0/xlsx.full.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/TableExport/5.0.2/js/tableexport.min.js"></script>
     <script src="https://d3js.org/d3-time.v1.min.js"></script>
@@ -118,7 +119,7 @@ define("SCRIPT_ROOT", "http://localhost:8000/tools/");
         <div class="large-12 columns">
             <div id="table-wrapper"></div>
             <div class="small-4 large-4 columns" id="search-wrapper">
-                <input class="search" type="search" data-column="any">
+                <input class="search" type="search" data-column="any" placeholder="Search...">
             </div>
             <table id="table" class="tablesorter">
                 <div class="loader">
