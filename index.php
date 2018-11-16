@@ -121,28 +121,28 @@ define("SCRIPT_ROOT", "http://localhost:8000/tools/");
             <div class="small-4 large-4 columns" id="search-wrapper">
                 <input class="search" type="search" data-column="any" placeholder="Search...">
             </div>
-            <table id="table" class="tablesorter">
-                <div class="loader">
-                    <div class="spinner"></div>
-                </div>
-            </table>
-            <div id="buttons">
-                <button class="button" id="first" data-id="first">
-                    First Page
-                </button>
-                <button class="button" id="previous-button" data-id="previous">
-                    Prev 25
-                </button>
-                <button class="button" id="next-button" data-id="next">
-                    Next 25
-                </button>
-                <button class="button" id="last" data-id="last">
-                    Last Page
-                </button>
-                <button id="all-button" class="button primary" data-id="all">
-                    Show All
-                </button>
-            </div>
+            <table id="table" class="tablesorter-default">
+          <div class="loader">
+            <div class="spinner"></div>
+          </div>
+        </table>
+        <div id="buttons">
+          <button class="button" id="first" data-id="first">
+            First Page
+          </button>
+          <button class="button" id="previous-button" data-id="previous">
+            Prev 25
+          </button>
+          <button class="button" id="next-button" data-id="next">
+            Next 25
+          </button>
+          <button class="button" id="last" data-id="last">
+            Last Page
+          </button>
+          <button id="all-button" class="button hollow" data-id="all">
+            Show All
+          </button>
+        </div>
         </div>
 
     </div>
