@@ -131,8 +131,8 @@ tr.detail-row .close {
 
  
   /* Make the primary row stand out */
-.tablesorter tbody tr.summary td {
-    /* background: #d7e5f3; */
+  .tablesorter tbody tr.summary td {
+    background: lightslategray;
     color: black;
 }
 
@@ -140,6 +140,7 @@ tr.detail-row .close {
 #table tbody tr.summary td {
     border-top: 1px solid #777;
     border-bottom: 1px solid #777;
+    background: lightslategray;
     cursor: pointer;
 }
 
@@ -199,7 +200,7 @@ tr.detail-row .close {
 }
 
 
-body {
+/* body {
     background-image: url(https://media.giphy.com/media/Y0cKnGMCBTNTi/giphy.gif);
     z-index: 1;
-  }
+  } */
