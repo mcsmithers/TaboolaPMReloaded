@@ -204,3 +204,11 @@ tr.detail-row .close {
     background-image: url(https://media.giphy.com/media/Y0cKnGMCBTNTi/giphy.gif);
     z-index: 1;
   } */
+
+  thead th {
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    background: white;
+    z-index: 10;
+}
