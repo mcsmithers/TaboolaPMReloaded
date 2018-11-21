@@ -140,7 +140,7 @@ tr.detail-row .close {
 #table tbody tr.summary td {
     border-top: 1px solid #777;
     border-bottom: 1px solid #777;
-    background: lightslategray;
+    background: lightgray;
     cursor: pointer;
 }
 
