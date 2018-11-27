@@ -1,0 +1,390 @@
+.button-group {
+    float: right;
+    margin-right: 20px;
+}
+
+.button-group .button {
+    margin: 0;
+    margin-right: 5px;
+    /* margin-bottom: 1px; */
+    font-size: 0.9rem;
+}
+
+#date-pickers {
+    margin: 0;
+    padding: 0;
+}
+
+#start-date-box {
+    display: inline-block;
+    margin: 5px;
+    /* width: 50%; */
+    /* border: fuchsia solid 1px; */
+}
+
+#end-date-box {
+    display: inline-block;
+    margin: 5px;
+    /* width: 50%; */
+    /* border: fuchsia solid 1px; */
+}
+
+#start-date {
+    display: inline-block;
+    /* width: 50%; */
+}
+
+#end-date {
+    display: inline-block;
+    /* width: 50%; */
+}
+
+tr.group {
+    border-bottom: #777 1px solid;
+    border-top: #777 1px solid;
+    font-weight: bold;
+}
+
+td.group {
+    transition: none;
+}
+
+button.showDetails {
+    background-color: #2ba6cb;
+    /* display: none; */
+    padding: 7px;
+    margin: 5px;
+    cursor: pointer;
+    -webkit-transition-duration: .4s;
+    -moz-transition-duration: .4s;
+    -o-transition-duration: .4s;
+    transition-duration: .4s;
+    -webkit-transition-property: -webkit-transform;
+    -moz-transition-property: -moz-transform;
+    -o-transition-property: -o-transform;
+    transition-property: transform;
+    border-radius: 50%
+}
+
+button.showDetails:focus {
+    outline: 0;
+}
+
+.dateCol {
+    white-space: nowrap;
+}
+
+.pmCol {
+    white-space: nowrap;
+}
+
+tr.detail-row .open {
+    transition: none;
+}
+
+tr.detail-row .close {
+    transition: none;
+}
+
+/* tr.detail-row.odd {
+    background-color: #f8f8f8;
+}
+
+tr.detail-row.even {
+    background-color: white;
+} */
+
+#nav a {
+    padding: 3px;
+    margin-right: 10px;
+}
+
+.button-default {
+    float: left;
+    background-color: lightblue;
+    margin-right: 10px;
+    padding: 10px;
+}
+
+#searchbox {
+    max-width: 30%;
+    float: right;
+    padding-right: 10px;
+}
+
+.line-chart {
+    border: 1px solid lightgray;
+}
+
+.summary td {
+    font-weight: bold;
+    /* background-color: lightgrey; */
+    cursor: pointer;
+}
+
+/* .pagination li:hover {
+    cursor: pointer;
+
+} */
+
+tr.detail-row .open {
+    transition: none;
+}
+
+tr.detail-row .close {
+    transition: none;
+    cursor: pointer;
+}
+
+.loader {
+    display: flex;
+    height: 50vh;
+    justify-content: center;
+    align-items: center;
+}
+
+.spinner {
+    height: 5vh;
+    width: 5vh;
+    border: 6px solid rgba(0, 174, 239, 0.2);
+    border-top-color: rgba(0, 174, 239, 0.8);
+    border-radius: 100%;
+    animation: rotation 0.6s infinite linear 0.25s;
+
+    /* the opacity is used to lazyload the spinner, see animation delay */
+    /* this avoid the spinner to be displayed when visible for a very short period of time */
+    opacity: 0;
+}
+
+@keyframes rotation {
+    from {
+        opacity: 1;
+        transform: rotate(0deg);
+    }
+
+    to {
+        opacity: 1;
+        transform: rotate(359deg);
+    }
+}
+
+/* add different color to child rows - needed css because zebra striping is not applied to
+ info-only tbodies (first table), & row indexing is reset for each tbody (second table), so
+ with only a row + child row, would all end up the same color */
+/* #table .tablesorter-childRow td {
+    background: #eee;
+  }
+  #table .tablesorter-childRow:hover td {
+    background: 	#f2f9eb;
+  }
+  
+  /* Make the primary row stand out */
+.tablesorter tbody tr.summary td {
+    background: #d7e5f3;
+    color: black;
+}
+
+*/
+
+/* dark border to make each tbody distinct */
+#table tbody tr.main td {
+    border-top: 1px solid #777;
+    /* main row is clickable; toggle sibling/child rows */
+    cursor: pointer;
+}
+
+.disabled {
+    color: gray;
+}
+
+
+/* div.pager {
+    text-align: right;
+    width: 40em;
+    margin: 1em auto;
+}
+
+#pager-button {
+    color: black;
+    background: #99bfe6;
+    font-size: 15px;
+    margin-right: 5px;
+    margin-left: 5px;
+} */
+
+#table {
+    margin: 5px;
+}
+
+#loadcat{
+    height: 100px;
+    width: 100px;
+}
+
+#overlay {
+    position: fixed; /* Sit on top of the page content */
+    display: none; /* Hidden by default */
+    width: 100%; /* Full width (cover the whole page) */
+    height: 100%; /* Full height (cover the whole page) */
+    top: 0; 
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+    z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+    cursor: pointer; /* Add a pointer on hover */
+}
+
+/* pager */
+#pager-container {
+	margin: 0px auto;
+	width: 100%;
+	position: fixed;
+	bottom: 0px;
+  left: 0px;
+	text-align: center;
+	display: inline-block;
+	z-index: 1000;
+	pointer-events: none;
+}
+
+#pager-background {
+	text-align: center;
+	display: inline-block;
+	position: relative;
+	bottom: 0;
+	width: 100%;
+	background-color: #000;
+	height: 1.5em;
+/*	line-height: 1.5em;
+	filter: alpha(opacity=90);
+	-moz-opacity: 0.9;
+	-webkit-opacity: 0.9;
+	opacity: 0.9; */
+	border-top: 1px solid #090909;
+	border-bottom: none;
+	pointer-events: auto;
+-webkit-user-select: none;
+   -moz-user-select: none;
+     -o-user-select: none;
+	user-select: none;
+	background-image: linear-gradient(top, #494949, #090909);
+	background-image: -o-linear-gradient(top, #494949, #090909);
+	background-image: -moz-linear-gradient(top, #494949, #090909);
+	background-image: -webkit-linear-gradient(top, #494949, #090909);
+	background-image: -ms-linear-gradient(top, #494949, #090909);
+}
+
+#pager {
+	color: #fff;
+	width: 100%;
+	display: inline-block;
+	/* text-shadow: 2px 2px 0px #000; */
+	font-size: 14px;
+	position: relative;
+	top: -3px;
+}
+
+#pager img {
+	vertical-align: top;
+	cursor: pointer;
+}
+
+#pager .clickable {
+	cursor: pointer;
+	color: #aaa;
+}
+
+#pager .clickable:focus {
+	box-shadow: none;
+	outline: none;
+}
+
+#pager .clickable:not(.disabled):hover {
+	color: #fff;
+}
+
+#pager .pagedisplay {
+	font-size: 16px;
+	position: relative;
+}
+
+#pager .spacer {
+	display: inline-block;
+	width: 10px;
+	height: 20px;
+	position: relative;
+	top: 4px;
+	margin-left: 10px;
+}
+
+#pager .separator {
+	border-left: 1px solid #555;
+	border-right: 1px solid #000;
+	height: 100%;
+	width: 0px;
+	border-radius: 20px / 130px;
+   -moz-border-radius: 20px / 130px;
+-webkit-border-radius: 20px / 130px;
+	box-shadow: 0 0 3px #555;
+   -moz-box-shadow: 0 0 3px #555;
+-webkit-box-shadow: 0 0 3px #555;
+}
+
+#pager select {
+	margin: 0;
+	height: auto;
+	width: auto;
+	display: inline-block;
+	font-size: 16px;
+	margin-bottom: 3px;
+}
+
+#pager .pagesize {
+	min-width: 45px;
+}
+
+#pager .gotoPage {
+	min-width: 10px;
+}
+
+/* fade out pager arrows when the first or last row is visible */
+#pager .disabled {
+	opacity: 0.3;
+	filter: alpha(opacity=30);
+	cursor: not-allowed;
+}
+
+#pager .pager_progressbar {
+	display: inline-block;
+	padding: 2px;
+	background: #333;
+	width: 300px;
+	color: #fff;
+	position: relative;
+	border: 2px groove #333;
+	border-radius: 5px;
+   -moz-border-radius: 5px;
+-webkit-border-radius: 5px;
+}
+
+#pager .pager_progress {
+	width: 0;
+	height: 100%;
+	display: inline-block;
+	overflow: hidden;
+	background-color: #0088cc;
+	background-image: linear-gradient(top, #0088cc, #0044cc);
+	background-image: -o-linear-gradient(top, #0088cc, #0044cc);
+	background-image: -moz-linear-gradient(top, #0088cc, #0044cc);
+	background-image: -webkit-linear-gradient(top, #0088cc, #0044cc);
+	background-image: -ms-linear-gradient(top, #0088cc, #0044cc);
+	position: absolute;
+	top: 0;
+	left: 0;
+	border-radius: 3px;
+   -moz-border-radius: 3px;
+-webkit-border-radius: 3px;
+}
+
+

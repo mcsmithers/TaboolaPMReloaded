@@ -1,0 +1,277 @@
+.button-group {
+    float: right;
+    margin-right: 20px;
+}
+
+.button-group .button {
+    margin: 0;
+    margin-right: 5px;
+    /* margin-bottom: 1px; */
+    font-size: 0.9rem;
+}
+
+#date-pickers {
+    margin: 0;
+    padding: 0;
+}
+
+#start-date-box {
+    display: inline-block;
+    /* width: 50%; */
+    /* border: fuchsia solid 1px; */
+}
+
+#end-date-box {
+    display: inline-block;
+    /* width: 50%; */
+    /* border: fuchsia solid 1px; */
+}
+
+#start-date {
+    display: inline-block;
+    /* width: 50%; */
+}
+
+#end-date {
+    display: inline-block;
+    /* width: 50%; */
+}
+
+tr.group {
+    border-bottom: #777 1px solid;
+    border-top: #777 1px solid;
+    background-color: #ddd !important;
+    font-weight: bold;
+}
+
+td.group {
+    background-color: lightgray;
+    transition: none;
+}
+
+button.showDetails {
+    background-color: #2ba6cb;
+    /* display: none; */
+    padding: 7px;
+    margin: 5px;
+    cursor: pointer;
+    -webkit-transition-duration: .4s;
+    -moz-transition-duration: .4s;
+    -o-transition-duration: .4s;
+    transition-duration: .4s;
+    -webkit-transition-property: -webkit-transform;
+    -moz-transition-property: -moz-transform;
+    -o-transition-property: -o-transform;
+    transition-property: transform;
+    border-radius: 50%
+}
+
+button.showDetails:focus {
+    outline: 0;
+}
+
+.dateCol {
+    white-space: nowrap;
+}
+
+.pmCol {
+    white-space: nowrap;
+}
+
+tr.detail-row .open {
+    transition: none;
+}
+
+tr.detail-row .close {
+    transition: none;
+}
+
+tr.detail-row.odd {
+    background-color: #f8f8f8;
+}
+
+tr.detail-row.even {
+    background-color: white;
+}
+
+#nav a {
+    padding: 3px;
+    margin-right: 10px;
+}
+
+.button-default {
+    float: left;
+    background-color: lightblue;
+    margin-right: 10px;
+    padding: 10px;
+}
+
+#searchbox {
+    max-width: 30%;
+    float: right;
+    padding-right: 10px;
+}
+
+.line-chart {
+    border: 1px solid lightgray;
+}
+
+.summary td {
+    font-weight: bold;
+    background-color: lightgrey;
+    cursor: pointer;
+}
+
+.pagination li:hover{
+    cursor: pointer;
+    
+}
+
+/* #maxRows {
+    max-width: 15%;
+    float: left;
+    padding-right: 10px;
+} */
+
+/* tr.summary{
+} */
+
+tr.detail-row .open{
+    transition: none;
+}
+tr.detail-row .close{
+    transition: none;
+    cursor: pointer;
+}
+
+tr.detail-row.odd {
+    background-color: #f8f8f8;
+}
+
+tr.detail-row.even {
+    background-color: lightcyan;
+}
+
+/* Inspirated from  http://www.alessioatzeni.com/wp-content/tutorials/html-css/CSS3-loading-animation-loop/index.html */
+.ouro {
+    position: relative;
+    display:inline-block;
+    height: 46px;
+    width: 46px;
+    margin: 1em;
+    border-radius: 50%;  
+    background: none repeat scroll 0 0 #DDDDDD;
+    overflow:hidden;
+    box-shadow: 0 0 10px rgba(0,0,0,.1) inset, 0 0 25px rgba(0,0,255,0.075);
+}
+
+.ouro:after {
+    content: "";
+    position: absolute;
+    top: 9px; left: 9px;
+    display: block;
+    height: 28px; width: 28px;
+    background: none repeat scroll 0 0 #F2F2F2;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(0,0,0,.1);
+}
+.ouro > span {
+    position: absolute;
+    height: 100%; width: 50%;
+    overflow: hidden;
+}
+.left  { left:0   }
+.right { left:50% }
+
+.anim {
+    position: absolute;
+    left: 100%; top: 0;
+    height: 100%; width: 100%;
+    border-radius: 999px;
+    background: none repeat scroll 0 0 #508EC3;
+    opacity: 0.8;
+    -webkit-animation: ui-spinner-rotate-left 3s infinite;
+    animation: ui-spinner-rotate-left 3s infinite;
+    -webkit-transform-origin: 0 50% 0;
+    transform-origin: 0 50% 0;
+}
+.left .anim {
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+}
+.right .anim {
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    left: -100%;
+    -webkit-transform-origin: 100% 50% 0;
+    transform-origin: 100% 50% 0;
+}
+
+/* v3 */
+.ouro3 .anim {
+   -webkit-animation-delay: 0s;
+   -webkit-animation-duration:3s;
+   -webkit-animation-timing-function: linear;
+   animation-delay: 0s;
+   animation-duration:3s;
+   animation-timing-function: linear;
+}
+.ouro3 .right .anim{
+   -webkit-animation-name: ui-spinner-rotate-right;
+   -webkit-animation-delay:0;
+   -webkit-animation-delay: 1.5s;
+   animation-name: ui-spinner-rotate-right;
+   animation-delay:0;
+   animation-delay: 1.5s;
+}
+
+/* round variation */
+.round .ouro:after {display:none }
+
+/* double variation */
+.double .ouro:after {
+  height: 13px; width: 13px;
+  left: 7px; top: 7px;
+  border: 10px solid #ddd;
+  background: transparent;
+  box-shadow: none;
+}
+
+@keyframes ui-spinner-rotate-right{
+  0%{transform:rotate(0deg)}
+  25%{transform:rotate(180deg)}
+  50%{transform:rotate(180deg)}
+  75%{transform:rotate(360deg)}
+  100%{transform:rotate(360deg)}
+}
+@keyframes ui-spinner-rotate-left{
+  0%{transform:rotate(0deg)}
+  25%{transform:rotate(0deg)}
+  50%{transform:rotate(180deg)}
+  75%{transform:rotate(180deg)}
+  100%{transform:rotate(360deg)}
+}
+
+@-webkit-keyframes ui-spinner-rotate-right{
+  0%{-webkit-transform:rotate(0deg)}
+  25%{-webkit-transform:rotate(180deg)}
+  50%{-webkit-transform:rotate(180deg)}
+  75%{-webkit-transform:rotate(360deg)}
+  100%{-webkit-transform:rotate(360deg)}
+}
+@-webkit-keyframes ui-spinner-rotate-left{
+  0%{-webkit-transform:rotate(0deg)}
+  25%{-webkit-transform:rotate(0deg)}
+  50%{-webkit-transform:rotate(180deg)}
+  75%{-webkit-transform:rotate(180deg)}
+  100%{-webkit-transform:rotate(360deg)}
+}
+
+/* presentation styles */
+html {height: 100%}
+body { text-align:center; background: radial-gradient(circle, #fff 0%, #bbb 85%) no-repeat; background: -webkit-radial-gradient(circle, #fff 0%, #bbb 85%) no-repeat; height: 100%; display:table; width:100%}
+.block {display: table-cell; vertical-align:middle}
+h1, a { margin-top: 1em; font-family: "Open Sans Light", "Open Sans", "Segoe UI", Helvetica, Arial; color: #888; font-weight: lighter;}
+.info {margin-top: 25px}
+.info a {font-size: 12px; color: #999}
+.info br + a {text-decoration:none}

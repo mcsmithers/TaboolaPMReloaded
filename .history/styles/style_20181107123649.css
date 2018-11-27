@@ -1,0 +1,212 @@
+.button-group {
+    float: right;
+    margin-right: 20px;
+}
+
+.button-group .button {
+    margin: 0;
+    margin-right: 5px;
+    /* margin-bottom: 1px; */
+    font-size: 0.9rem;
+}
+
+#date-pickers {
+    margin: 0;
+    padding: 0;
+}
+
+#start-date-box {
+    display: inline-block;
+    margin: 5px;
+    /* width: 50%; */
+    /* border: fuchsia solid 1px; */
+}
+
+#end-date-box {
+    display: inline-block;
+    margin: 5px;
+    /* width: 50%; */
+    /* border: fuchsia solid 1px; */
+}
+
+#start-date {
+    display: inline-block;
+    /* width: 50%; */
+}
+
+#end-date {
+    display: inline-block;
+    /* width: 50%; */
+}
+
+tr.detail-row .open {
+    transition: none;
+}
+
+tr.detail-row .close {
+    transition: none;
+}
+
+#nav a {
+    padding: 3px;
+    margin-right: 10px;
+}
+
+.button-default {
+    float: left;
+    background-color: lightblue;
+    margin-right: 10px;
+    padding: 10px;
+}
+
+#searchbox {
+    max-width: 50%;
+    right:0;
+    /* float: right; */
+    padding-right: 10px;
+    position: absolute;
+}
+
+.line-chart {
+    border: 1px solid lightgray;
+}
+
+.summary td {
+    font-weight: bold;
+    border-bottom: #777;
+    border-top: #777;
+    cursor: pointer;
+}
+
+.pagination li:hover {
+    cursor: pointer;
+
+}
+
+tr.detail-row .open {
+    transition: none;
+}
+
+tr.detail-row .close {
+    transition: none;
+    cursor: pointer;
+}
+
+.loader {
+    display: flex;
+    height: 50vh;
+    justify-content: center;
+    align-items: center;
+}
+
+.spinner {
+    height: 5vh;
+    width: 5vh;
+    border: 6px solid rgba(0, 174, 239, 0.2);
+    border-top-color: rgba(0, 174, 239, 0.8);
+    border-radius: 100%;
+    animation: rotation 0.6s infinite linear 0.25s;
+
+    /* the opacity is used to lazyload the spinner, see animation delay */
+    /* this avoid the spinner to be displayed when visible for a very short period of time */
+    opacity: 0;
+}
+
+@keyframes rotation {
+    from {
+        opacity: 1;
+        transform: rotate(0deg);
+    }
+
+    to {
+        opacity: 1;
+        transform: rotate(359deg);
+    }
+}
+ 
+  /* Make the primary row stand out */
+.tablesorter tbody tr.summary td {
+    background: #d7e5f3;
+    color: black;
+}
+
+/* dark border to make each tbody distinct */
+#table tbody tr.summary td {
+    border-top: 1px solid #777;
+    cursor: pointer;
+}
+
+.disabled {
+    color: gray;
+}
+
+
+#table {
+    margin: 5px;
+}
+
+#loadcat{
+    height: 100px;
+    width: 100px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
+
+#loadpup{
+    height: 50px;
+    width: 50px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
+
+#error{
+    height: 200px;
+    width: 200px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
+
+#overlay {
+    position: fixed; /* Sit on top of the page content */
+    display: none; /* Hidden by default */
+    width: 100%; /* Full width (cover the whole page) */
+    height: 100%; /* Full height (cover the whole page) */
+    top: 0; 
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+    z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+    cursor: pointer; /* Add a pointer on hover */
+}
+
+#buttons {
+    margin-left: 5px;
+}
+
+#previous-button{
+    margin-left: 5px;
+}
+
+#next-button{
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+#last-button{
+    margin-left: 5px;
+}
+
+
+#all-button{
+    margin-left: 5px;
+}
+
+
+body {
+    background-image: url(https://media.giphy.com/media/Y0cKnGMCBTNTi/giphy.gif);
+    z-index: 1;
+  }
