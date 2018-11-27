@@ -61,7 +61,7 @@ $(document).ready(function () {
     // // For date changes, we need to get those and send them through all the endpoints as args
     const getNetsphere = (startDateSelect, endDateSelect) => $.ajax({
             type: "GET",
-            url: "https://tapstone.com/tools/includes/netsphereData.php?startDate=" + startDateSelect + "&endDate=" + endDateSelect,
+            url: "url" + startDateSelect + "&endDate=" + endDateSelect,
             data: {},
             dataType: "json"
         })
@@ -145,7 +145,7 @@ $(document).ready(function () {
 
     const getTune = (startDateSelect, endDateSelect) => $.ajax({
             type: "GET",
-            url: "https://tsh.api.hasoffers.com/Apiv3/json?NetworkToken=NETXqfUQYBBISOBfs6ixG8BeFg5sKe&Target=Report&Method=getStats&fields[]=Affiliate.company&fields[]=Stat.revenue&fields[]=Stat.offer_id&fields[]=Stat.conversions&fields[]=Stat.date&fields[]=Stat.affiliate_id&fields[]=Offer.name&sort[Stat.revenue]=desc&limit=1000000&page=1&filters[Stat.goal_id][conditional]=EQUAL_TO&filters[Stat.goal_id][values]=0&filters[Stat.revenue][conditional]=GREATER_THAN&filters[Stat.revenue][values]=0&" + "&data_start=" + startDateSelect + "&data_end=" + endDateSelect,
+            url: "url" + "&data_start=" + startDateSelect + "&data_end=" + endDateSelect,
             data: {},
             dataType: "json",
         })
@@ -188,7 +188,7 @@ $(document).ready(function () {
     const account = "tapstone";
     const xmlhttp = new XMLHttpRequest();
     var requestStatus;
-    var request = "https://tapstone.com/tools/includes/taboolaReportRequest.php?account=";
+    var request = "url";
 
     // // Failure function in case something is broken
     function failFunction(response) {
@@ -591,6 +591,29 @@ $(document).ready(function () {
                     }
                 });
         }
+
+        // // Chart stuff
+        TESTER = document.getElementById('tester');
+        // Plotly.plot( TESTER, [{
+        // x: [1, 2, 3, 4, 5],
+        // y: [1, 2, 4, 8, 16] }], {
+        // margin: { t: 0 } } );
+        var traces = [];
+        merged.forEach(function (val) {
+            var trace = {
+                x: [val["affId_offId"]],
+                y: [val["revenue"]],
+                name: val["affId_offId"],
+                type: 'line'
+            };
+            traces.push(trace);
+        });
+        console.log(traces);
+        var layout = {
+            barmode: 'group'
+        };
+        Plotly.newPlot('tester', traces, layout);
+
 
         // // Sorting magic for the lovely media divas, I am teasing, promise
         // // This works like datatables but with a little more freedom

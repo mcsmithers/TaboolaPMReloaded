@@ -43,14 +43,15 @@ define("SCRIPT_ROOT", "http://localhost:8000/tools/");
     <script src="https://cdnjs.cloudflare.com/ajax/libs/TableExport/5.0.2/js/tableexport.min.js"></script>
     <script src="https://d3js.org/d3-time.v1.min.js"></script>
     <script src="https://d3js.org/d3-time-format.v2.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
-    <!-- fuzzy searching -->
     <!-- load jQuery and tablesorter scripts to deal with the sorting and filtering-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.0/js/jquery.tablesorter.min.js"></script>
     <!-- tablesorter widgets -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.0/js/jquery.tablesorter.widgets.min.js"></script>
     <!-- this assists with paginating multiple tbodies-->
     <script src="https://mottie.github.io/tablesorter/js/widgets/widget-sortTbodies.js"></script>
+    
     <!-- and of course the main one -->
     <script src="./scripts/main.js"></script>
 
@@ -122,6 +123,8 @@ define("SCRIPT_ROOT", "http://localhost:8000/tools/");
             <div class="small-4 large-4 columns" id="search-wrapper">
                 <input class="search" type="search" data-column="any" placeholder="Search...">
             </div>
+            <div id="tester" style="width:800px;height:450px;"></div>
+
             <table id="table" class="tablesorter-default">
                 <div class="loader">
                     <div class="spinner"></div>
