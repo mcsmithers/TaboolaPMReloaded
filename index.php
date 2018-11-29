@@ -51,6 +51,8 @@ define("SCRIPT_ROOT", "http://localhost:8000/tools/");
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.0/js/jquery.tablesorter.widgets.min.js"></script>
     <!-- this assists with paginating multiple tbodies-->
     <script src="https://mottie.github.io/tablesorter/js/widgets/widget-sortTbodies.js"></script>
+    <!-- custom fuzzy search-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.3.0/fuse.min.js"></script>
     <!-- and of course the main one -->
     <script src="./scripts/main.js"></script>
 
@@ -127,7 +129,7 @@ define("SCRIPT_ROOT", "http://localhost:8000/tools/");
                     <div class="spinner"></div>
                 </div>
             </table>
-          <!--  <div id="buttons">
+            <!--  <div id="buttons">
                 <button class="button" id="first" data-id="first">
                     First Page
                 </button>
@@ -146,7 +148,7 @@ define("SCRIPT_ROOT", "http://localhost:8000/tools/");
             </div>
         </div> -->
 
-    </div>
+        </div>
     </div>
     </div>
 
