@@ -18,25 +18,19 @@
 #start-date-box {
     display: inline-block;
     margin: 5px;
-    /* width: 50%; */
-    /* border: fuchsia solid 1px; */
 }
 
 #end-date-box {
     display: inline-block;
     margin: 5px;
-    /* width: 50%; */
-    /* border: fuchsia solid 1px; */
 }
 
 #start-date {
     display: inline-block;
-    /* width: 50%; */
 }
 
 #end-date {
     display: inline-block;
-    /* width: 50%; */
 }
 
 tr.detail-row .open {
@@ -123,21 +117,16 @@ tr.detail-row .close {
     }
 }
 
-/* make the header freeze */
-/* .tablesorter-headerRow{
-    position: relative;
-      white-space: nowrap;
-} */
-
- 
-  /* Make the primary row stand out */
-  .tablesorter tbody tr.summary td {
+/* Make the primary row stand out */
+.tablesorter tbody tr.summary td {
     background: lightgray;
+    cursor: pointer;
     color: black;
 }
 
 /* dark border to make each tbody distinct */
 #table tbody tr.summary td {
+    font-weight: bold;
     border-top: 1px solid #777;
     border-bottom: 1px solid #777;
     background: #e0e0e0;
@@ -151,9 +140,10 @@ tr.detail-row .close {
 
 #table {
     margin: 5px;
+      /* border-collapse: collapse;  */
 }
 
-#loadcat{
+#loadcat {
     height: 100px;
     width: 100px;
     position: absolute;
@@ -161,7 +151,7 @@ tr.detail-row .close {
     left: 50%;
 }
 
-#loadpup{
+#loadpup {
     height: 50px;
     width: 50px;
     position: absolute;
@@ -169,7 +159,7 @@ tr.detail-row .close {
     left: 50%;
 }
 
-#error{
+#error {
     height: 200px;
     width: 200px;
     position: absolute;
@@ -181,21 +171,21 @@ tr.detail-row .close {
     margin-left: 5px;
 }
 
-#previous-button{
+#previous-button {
     margin-left: 5px;
 }
 
-#next-button{
+#next-button {
     margin-left: 5px;
     margin-right: 5px;
 }
 
-#last-button{
+#last-button {
     margin-left: 5px;
 }
 
 
-#all-button{
+#all-button {
     margin-left: 5px;
 }
 
@@ -205,7 +195,7 @@ tr.detail-row .close {
     z-index: 1;
   } */
 
-  thead th {
+thead th {
     position: sticky;
     position: -webkit-sticky;
     top: 0;
@@ -213,10 +203,109 @@ tr.detail-row .close {
     z-index: 10;
 }
 
-.tablesorter-default tr.even > td {
+.tablesorter-default tr.even>td {
     background-color: white;
 }
 
-.tablesorter-default tr.odd > td {
+.tablesorter-default tr.odd>td {
     background-color: #F8F8F9;
 }
+
+#showEverything {
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.tablesorter-no-sort-tbody td {}
+
+.tablesorter-no-sort-tbody tr:hover td {
+    color: #333;
+}
+
+div.count{
+    margin-left: 10px;
+}
+
+body {
+    /* Never get smaller than this */
+    font-size: 8px;
+    word-wrap: break-word;
+    flex-wrap: wrap;
+    font-size: calc(14px + (26 - 14) * ((100vw - 300px) / (1600 - 300)));
+    line-height: calc(1.3em + (1.5 - 1.2) * ((100vw - 300px)/(1600 - 300)));
+    font-size: 2vw;
+  }
+  
+  @media (min-width:600px) {
+    body {
+      font-size: 10px;
+    }
+  }
+  
+  @media (min-width:800px) {
+    body {
+      font-size: 14px;
+    }
+  }
+  
+  @media (min-width:1000px) {
+    body {
+      /* Never get larger than this */
+      font-size: 20px;
+    }
+  }
+
+  /* REQUIRED CSS: change your reflow breakpoint here (35em below) */
+@media ( max-width: 35em ) {
+
+    /* uncomment out the line below if you don't want the sortable headers to show */
+    /* table.ui-table-reflow thead { display: none; } */
+  
+    /* css for reflow & reflow2 widgets */
+    .ui-table-reflow td,
+    .ui-table-reflow th {
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      float: right;
+      /* if not using the stickyHeaders widget (not the css3 version)
+       * the "!important" flag, and "height: auto" can be removed */
+      width: 100% !important;
+      height: auto !important;
+    }
+  
+    /* reflow widget only */
+    .ui-table-reflow tbody td[data-title]:before {
+      color: #469;
+      font-size: .9em;
+      content: attr(data-title);
+      float: left;
+      width: 50%;
+      white-space: pre-wrap;
+      text-align: bottom;
+      display: inline-block;
+    }
+  
+    /* reflow2 widget only */
+    table.ui-table-reflow .ui-table-cell-label.ui-table-cell-label-top {
+      display: block;
+      padding: .4em 0;
+      margin: .4em 0;
+      text-transform: uppercase;
+      font-size: .9em;
+      font-weight: 400;
+    }
+    table.ui-table-reflow .ui-table-cell-label {
+      padding: .4em;
+      min-width: 30%;
+      display: inline-block;
+      margin: -.4em 1em -.4em -.4em;
+    }
+  
+  } /* end media query */
+  
+  /* reflow2 widget */
+  .ui-table-reflow .ui-table-cell-label {
+    display: none;
+  }
+  

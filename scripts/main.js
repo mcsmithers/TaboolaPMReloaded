@@ -145,13 +145,13 @@ $(document).ready(function () {
 
     const getTune = (startDateSelect, endDateSelect) => $.ajax({
             type: "GET",
-            url: "https://tsh.api.hasoffers.com/Apiv3/json?NetworkToken=NETXqfUQYBBISOBfs6ixG8BeFg5sKe&Target=Report&Method=getStats&fields[]=Affiliate.company&fields[]=Stat.revenue&fields[]=Stat.offer_id&fields[]=Stat.conversions&fields[]=Stat.date&fields[]=Stat.affiliate_id&fields[]=Offer.name&sort[Stat.revenue]=desc&limit=1000000&page=1&filters[Stat.goal_id][conditional]=EQUAL_TO&filters[Stat.goal_id][values]=0&filters[Stat.revenue][conditional]=GREATER_THAN&filters[Stat.revenue][values]=0&" + "&data_start=" + startDateSelect + "&data_end=" + endDateSelect,
+            url: "https://tsh.api.hasoffers.com/Apiv3/json?NetworkToken=NETXqfUQYBBISOBfs6ixG8BeFg5sKe&Target=Report&Method=getStats&fields[]=Affiliate.company&fields[]=Stat.revenue&fields[]=Stat.offer_id&fields[]=Stat.conversions&fields[]=Stat.date&fields[]=Stat.affiliate_id&fields[]=Offer.name&sort[Stat.revenue]=desc&limit=1000000&page=1&filters[Stat.goal_id][conditional]=EQUAL_TO&filters[Stat.goal_id][values]=0" + "&data_start=" + startDateSelect + "&data_end=" + endDateSelect,
             data: {},
             dataType: "json",
         })
         .then(response => {
             tuneData = response.response.data.data;
-            // console.log(tuneData);
+            // console.log(JSON.stringify(tuneData));
 
             const tune = tuneData.map(function (value, key) {
                 const affiliateId = value.Stat.affiliate_id;
@@ -163,7 +163,6 @@ $(document).ready(function () {
                 const actions = value.Stat.conversions;
                 const entry = new Object();
                 entry.affiliate = affiliate;
-                entry.offer = offer;
                 if (entry.affiliateId != undefined) {
                     entry.affiliateId = affiliateId;
                 }
@@ -175,7 +174,9 @@ $(document).ready(function () {
                 entry.offerId = offerId;
                 entry.date = date;
                 entry.actions = actions;
-                entry.revenue = revenue;
+                entry.revenue = Number(revenue);
+                entry.offer = offer;
+                // console.log(offer + 'is with ' + affiliateId);
                 return entry;
             })
             console.log("Tune object looks like...");
@@ -256,7 +257,7 @@ $(document).ready(function () {
             });
 
             console.log("Taboola Data object looks like...");
-            // Look out for 7395, 7397, 7399, and 7401
+            // Look out for 7477, 7479, and 7481
             console.log(taboola);
             // console.log(JSON.stringify(taboola));
             return taboola;
@@ -281,6 +282,8 @@ $(document).ready(function () {
             fullCollection = fullCollection.concat(arg)
         })
 
+        // console.log(fullCollection);
+
         const comparator = (arrVal, othVal) => (
             arrVal.hasOwnProperty('affId_offId') &&
             othVal.hasOwnProperty('affId_offId') && arrVal.affId_offId === othVal.affId_offId && arrVal.date === othVal.date
@@ -298,10 +301,9 @@ $(document).ready(function () {
                 comparator(element, currentValue)
             );
             // // This will try to find the currentValue in the accumulator array
-
             const customizer = (existing, currentValue) => _.isUndefined(existing) ? currentValue : existing;
 
-            if (existing !== undefined) {
+            if (existing != undefined) {
                 _.assignWith(existing, currentValue, customizer);
             } else {
                 // // If a value found, it will merge into the existing object
@@ -312,6 +314,7 @@ $(document).ready(function () {
         };
         // // Get the whole collection and then turn into the full data object
         const merged = fullCollection.reduce(merge, []);
+        console.log(merged);
 
         console.log("Time to merge the stuff from each API...");
         // console.log(JSON.stringify(merged));
@@ -321,7 +324,7 @@ $(document).ready(function () {
     }
 
     function performCleanupAndCalcs(merged) {
-        console.log(merged);
+        // console.log(JSON.stringify(merged));
 
         merged = merged.map(element => {
             // First let's deal with undefined
@@ -329,29 +332,28 @@ $(document).ready(function () {
             const date = element.date;
             const affId_offId = element.affId_offId;
             const affiliate = element.affiliate;
-            const offer = element.offer;
             const clicks = element.clicks;
             const actions = element.actions;
             const cost = element.cost;
-            // const revenue = Number.parseFloat(element.revenue);
-            // const revenue = Number.parseFloat(element.revenue);
             const revenue = Number.parseFloat(element.revenue);
             const profit = revenue - cost;
             const profitMargin = (profit / revenue) * 100;
             const cpc = cost / clicks;
             const rpc = revenue / clicks;
             const rpa = revenue / actions;
+            const offer = element.offer;
+            // console.log(affiliate + ' goes with ' + affId_offId);
 
             return {
                 date,
                 affId_offId,
                 clicks,
+                offer,
                 actions,
                 cost,
                 revenue,
                 name,
                 affiliate,
-                offer,
                 profit,
                 profitMargin,
                 cpc,
@@ -366,10 +368,8 @@ $(document).ready(function () {
             cost
         }) => !(affiliate === '' && affiliate == null && cost === 0 && cost === NaN && cost === '' && cost == undefined && cost == null && affiliate == undefined));
 
-
-
-        console.log("Detail rows data");
-        console.log(merged);
+        // console.log("Detail rows data");
+        // console.log(JSON.stringify(merged));
         return merged;
     }
 
@@ -392,11 +392,11 @@ $(document).ready(function () {
             AffiliateId_OfferId: "affId_offId",
             Cost: "cost",
             Revenue: "revenue",
+            Profit: "profit",
+            PM: "profitMargin",
             CPC: "cpc",
             RPC: "rpc",
             RPA: "rpa",
-            Profit: "profit",
-            PM: "profitMargin",
             Campaign: "name",
             Offer: "offer",
             Affiliate: "affiliate"
@@ -434,7 +434,7 @@ $(document).ready(function () {
             .data(headers)
             .enter()
             .append('th')
-            .attr("class", "filter-match")
+            // .attr("class", "filter-match")
             .text(function (column) {
                 return column;
             })
@@ -534,6 +534,7 @@ $(document).ready(function () {
             .enter()
             .append('tr')
             .attr("class", "tableexport-string target")
+            .attr("class", "tablesorter-childRow")
             .attr("class", "detail-row")
             .classed('entry', true)
 
@@ -577,6 +578,9 @@ $(document).ready(function () {
                             return '$' + Number.parseFloat(d.value).toFixed(2);
                         }
                     }
+                    if (d.column === 'Date') {
+                        $('td').addClass('sorter-shortDate');
+                    }
                     return d.value;
                 })
                 .style("color", function (d) {
@@ -597,10 +601,8 @@ $(document).ready(function () {
         $('#table table')
             .trigger("destroy", false)
             .tablesorter({
-                // this option only adds a table class name "tablesorter-{theme}"
                 theme: 'default',
-                // widgets: ['sortTbody', 'filter', 'zebra', 'stickyHeaders'],
-                widgets: ['sortTbody', 'filter', 'zebra'],
+                widgets: ['sortTbody', 'filter', 'zebra', 'reflow'],
                 widgetOptions: {
                     filter_external: '.search',
                     filter_columnFilters: false,
@@ -608,24 +610,33 @@ $(document).ready(function () {
                     filter_ignoreCase: true,
                     filter_columnFilters: false,
                     filter_defaultFilter: {
-                        12: '~{q}'
+                        all: '~{q}'
                     },
+                    filter_selectSourceSeparator: ' ',
                     filter_excludeFilter: {
                         'th': 'range'
                     },
                     filter_external: '.search',
                     filter_saveFilters: false,
                     filter_reset: '.reset',
+                    sortTbody_sortRows: false,
+                    sortTbody_noSort: 'tablesorter-no-sort-tbody',
                     sortTbody_lockHead: true,
                     sortTbody_primaryRow: '.summary',
-                    sortTbody_sortRows: true,
+                    sortTbody_sortRows: false,
                     zebra: ["even", "odd"],
                     usNumberFormat: true,
                     // include child row content while filtering the second demo table
-                    filter_childRows: true
+                    filter_childRows: true,
+                    // class name added to make it responsive (class name within media query)
+                    reflow_className: 'ui-table-reflow',
+                    // header attribute containing modified header name
+                    reflow_headerAttrib: 'data-name',
+                    // data attribute added to each tbody cell
+                    // it contains the header cell text, visible upon reflow
+                    reflow_dataAttrib: 'data-title'
                 }
             });
-
 
         // // Count the stuff
         const totalRows = merged.length;
@@ -633,6 +644,20 @@ $(document).ready(function () {
         const shownDetailRows = $('tr.detail-row:visible').length;
         console.log('showing ', totalRows, ' of ', shownDetailRows, ' details and ', shownSummaryRows, ' summaries');
 
+        // // When clicked, you can see the details and summaries together
+        d3.select("#buttons").select("#showEverything").on("click", function (d) {
+            console.log('clicked show everything');
+            if (startDateSelect !== endDateSelect) {
+                $("tr.detail-row").show(); // hides the row
+            }
+        });
+        // then we close if wnated
+        d3.select("#buttons").select("#hideEverything").on("click", function (d) {
+            console.log('clicked hide everything');
+            if (startDateSelect !== endDateSelect && $("tr.detail-row").css('visibility' === 'visible')) {
+                $("tr.detail-row").hide(); // hides the row
+            }
+        });
 
         // // using d3 to paginate 
         // const totalBodies = $('tbody').length;
@@ -721,7 +746,6 @@ $(document).ready(function () {
 
         if (startDateSelect != endDateSelect) {
             $("tr.detail-row").css("display", "none"); // hides the row
-            $("tr.detail-row").addClass("sorter-false"); //disable sorting on all but dates in etails
         }
 
         if (startDateSelect == endDateSelect) {
@@ -781,7 +805,7 @@ $(document).ready(function () {
         .then(performCleanupAndCalcs)
         .then(data => {
             console.log('this is the then after cleanups');
-            console.log(data);
+            // console.log(data);
             // console.log(data);
             return data;
         })
@@ -930,73 +954,4 @@ $(document).ready(function () {
             });
 
     });
-    // $("#end-date").change(function () {
-    //     startDateSelect = $('#start-date').val();
-    //     endDateSelect = $('#end-date').val(); // update here before executing the chain.
-    //     $("body").find("*").attr("disabled", "disabled");
-    //     $("body").find("a").click(function (e) {
-    //         e.preventDefault();
-    //     });
-    //     $('#error').remove();
-    //     $('.count').remove();
-    //     console.log("new end date is " + endDateSelect + " and start date is " + startDateSelect + ".  Fetching the new data...");
-    //     $('#table tr').remove();
-    //     $('#table').prepend('<p id="loadmsg">Loading...</p>');
-    //     $('div.pager').hide();
-    //     $('#table').prepend('<img id="loadpup" src="fidgetSpinner.gif" />');
-
-    //     if (endDateSelect < startDateSelect) {
-    //         $('#table').prepend('<img id="error" src="shining.gif" />');
-    //         $('#loadcat').remove();
-    //         $('#loadmsg').remove();
-    //         $('.count').remove();
-    //         // Click prevention removed
-    //         $("body").find("*").removeAttr("disabled");
-    //         $("body").find("a").unbind("click");
-    //         $('#table tr').remove();
-    //         $('#errorContainer').html('<em>Past time travel not possible: </em>End date cannot be before the start date.  Try again.');
-    //         $('#errorContainer').css('display', 'block');
-    //         $('#error-box').css('display', 'block');
-    //         document.getElementById("errorContainer").style.color = "red";
-    //     }
-
-    //     Promise.all([
-    //             getNetsphere(startDateSelect, endDateSelect),
-    //             getTaboola(startDateSelect, endDateSelect),
-    //             getTune(startDateSelect, endDateSelect)
-
-    //         ])
-    //         .then(data => mergeData(...data))
-    //         .then(merged => {
-    //             // console.log(merged);
-    //             return merged;
-    //         })
-    //         .then(performCleanupAndCalcs)
-    //         .then(data => {
-    //             return data;
-    //         })
-    //         .then(buildTableBodyEntries)
-    //         .then(data => {
-    //             $('#loadpup').remove();
-    //             $('#loadcat').remove();
-    //             $('#loadmsg').remove();
-    //             $('.loader').remove();
-    //             // console.log(data);
-    //             return data;
-    //         }).catch(function (err) {
-    //             $('.loader').remove();
-    //             $('.count').remove();
-    //             $('#loadpup').remove();
-    //             $('#loadmsg').remove();
-    //             // Click prevention removed
-    //             $("body").find("*").removeAttr("disabled");
-    //             $("body").find("a").unbind("click");
-    //             $('#table').prepend('<img id="error" src="error.gif" />')
-    //             $('#errorContainer').html('Oh snap, a data source seems unavailable.  Try refreshing the page or try again later.');
-    //             $('#errorContainer').css('display', 'block');
-    //             $('#error-box').css('display', 'block');
-    //             document.getElementById("errorContainer").style.color = "red";
-    //             console.log(err);
-    //         });
-    // });
 });
