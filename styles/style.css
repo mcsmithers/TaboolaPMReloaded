@@ -309,3 +309,18 @@ body {
     display: none;
   }
   
+
+  #grandTotalRow{
+    font-weight: bold;
+    border-top: 1px solid #777;
+    border-bottom: 1px solid #777;
+    background-color: lightsteelblue;
+    padding: 15px;
+  }
+
+  .grandTd{
+    font-weight: bold;
+    font-size: 12px;
+    padding: 12px;
+  }
+  
