@@ -145,7 +145,7 @@ $(document).ready(function () {
 
     const getTune = (startDateSelect, endDateSelect) => $.ajax({
             type: "GET",
-            url: "https://URL.api.hasoffers.com/Apiv3/json?NetworkToken=KEYKe&Target=Report&Method=getStats&fields[]=Affiliate.company&fields[]=Stat.revenue&fields[]=Stat.offer_id&fields[]=Stat.conversions&fields[]=Stat.date&fields[]=Stat.affiliate_id&fields[]=Offer.name&sort[Stat.revenue]=desc&limit=1000000&page=1&filters[Stat.goal_id][conditional]=EQUAL_TO&filters[Stat.goal_id][values]=0" + "&data_start=" + startDateSelect + "&data_end=" + endDateSelect,
+            url: "https://URL.api.hasoffers.com/Apiv3/json?NetworkToken=KEY&Target=Report&Method=getStats&fields[]=Affiliate.company&fields[]=Stat.revenue&fields[]=Stat.offer_id&fields[]=Stat.conversions&fields[]=Stat.date&fields[]=Stat.affiliate_id&fields[]=Offer.name&sort[Stat.revenue]=desc&limit=1000000&page=1&filters[Stat.goal_id][conditional]=EQUAL_TO&filters[Stat.goal_id][values]=0" + "&data_start=" + startDateSelect + "&data_end=" + endDateSelect,
             data: {},
             dataType: "json",
         })
@@ -173,7 +173,7 @@ $(document).ready(function () {
                 entry.affiliateId = affiliateId;
                 entry.offerId = offerId;
                 entry.date = date;
-                entry.actions = actions;
+                entry.actions = Number(actions);
                 entry.revenue = Number(revenue);
                 entry.offer = offer;
                 // console.log(offer + 'is with ' + affiliateId);
@@ -491,7 +491,7 @@ $(document).ready(function () {
 
             val[acc.affId_offId].rpc = Number(val[acc.affId_offId].revenue / val[acc.affId_offId].clicks);
 
-            val[acc.affId_offId].rpa = Number(val[acc.affId_offId].revenue / val[acc.affId_offId].actions) ? Number.parseFloat(acc.rpa) : 0;
+            val[acc.affId_offId].rpa = Number(val[acc.affId_offId].revenue / val[acc.affId_offId].actions);
 
             return val;
         }, {});
