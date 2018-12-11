@@ -145,7 +145,7 @@ $(document).ready(function () {
 
     const getTune = (startDateSelect, endDateSelect) => $.ajax({
             type: "GET",
-            url: "https://tsh.api.hasoffers.com/Apiv3/json?NetworkToken=NETXqfUQYBBISOBfs6ixG8BeFg5sKe&Target=Report&Method=getStats&fields[]=Affiliate.company&fields[]=Stat.revenue&fields[]=Stat.offer_id&fields[]=Stat.conversions&fields[]=Stat.date&fields[]=Stat.affiliate_id&fields[]=Offer.name&sort[Stat.revenue]=desc&limit=1000000&page=1&filters[Stat.goal_id][conditional]=EQUAL_TO&filters[Stat.goal_id][values]=0" + "&data_start=" + startDateSelect + "&data_end=" + endDateSelect,
+            url: "https://URL.api.hasoffers.com/Apiv3/json?NetworkToken=KEYKe&Target=Report&Method=getStats&fields[]=Affiliate.company&fields[]=Stat.revenue&fields[]=Stat.offer_id&fields[]=Stat.conversions&fields[]=Stat.date&fields[]=Stat.affiliate_id&fields[]=Offer.name&sort[Stat.revenue]=desc&limit=1000000&page=1&filters[Stat.goal_id][conditional]=EQUAL_TO&filters[Stat.goal_id][values]=0" + "&data_start=" + startDateSelect + "&data_end=" + endDateSelect,
             data: {},
             dataType: "json",
         })
@@ -461,9 +461,10 @@ $(document).ready(function () {
                 revenue: 0,
                 profit: 0,
                 clicks: 0,
-                rpa: 0,
+                pm: 0,
                 cpc: 0,
                 rpc: 0,
+                rpa: 0,
                 actions: 0
             };
 
@@ -483,18 +484,54 @@ $(document).ready(function () {
 
             val[acc.affId_offId].offer = acc.offer;
 
-            val[acc.affId_offId].cpc = Number.isFinite(val[acc.affId_offId].cost / val[acc.affId_offId].clicks) ? Number.parseFloat(acc.cpc) : 0;
 
+            val[acc.affId_offId].profitMargin = Number(val[acc.affId_offId].profit / val[acc.affId_offId].revenue).toFixed(2) * 100;
 
-            val[acc.affId_offId].rpc = Number.isFinite(Number.parseFloat(acc.revenue) / Number.parseFloat(acc.clicks)) ? Number.parseFloat(acc.rpc) : 0;
+            val[acc.affId_offId].cpc = Number(val[acc.affId_offId].cost / val[acc.affId_offId].clicks);
 
-            val[acc.affId_offId].rpa = Number.isFinite(Number.parseFloat(acc.revenue) / Number.parseFloat(acc.actions)) ? Number.parseFloat(acc.rpa) : 0;
+            val[acc.affId_offId].rpc = Number(val[acc.affId_offId].revenue / val[acc.affId_offId].clicks);
 
-            val[acc.affId_offId].profitMargin = Number.isFinite(Number.parseFloat(acc.profit) / Number.parseFloat(acc.revenue)) ? Number.parseFloat(acc.profitMargin) : 0;
+            val[acc.affId_offId].rpa = Number(val[acc.affId_offId].revenue / val[acc.affId_offId].actions) ? Number.parseFloat(acc.rpa) : 0;
 
             return val;
         }, {});
 
+        console.log(summary);
+
+        // // Grand total reducer
+        const grandTotal = [merged.reduce((acc, n) => {
+            for (let prop in n) {
+                if (acc.hasOwnProperty(prop)) acc[prop] += n[prop];
+                else acc[prop] = n[prop];
+                delete acc.date;
+                delete acc.affId_offId;
+                delete acc.affiliate;
+                delete acc.offer;
+                delete acc.name;
+                delete acc.cpc;
+                delete acc.rpc;
+                delete acc.rpa;
+                delete acc.profitMargin;
+                acc.pm = Number(acc.profit / acc.revenue) * 100;
+            }
+            return acc;
+        }, {})];
+
+        // console.log(grandTotal);
+        // // Yes, it's jQuery instead of D3 here, but it is simpler this way
+        const grandTotalRow = $("<tr id='grandTotalRow' class='static no-sort'><td class='grandTd' colspan=2>GRAND TOTAL:</td><td class='grandTd'>" + '$' + grandTotal[0].cost.toFixed(2) + "</td>" +
+            "<td class='grandTd'>" + '$' + grandTotal[0].revenue.toFixed(2) + "</td>" +
+            "<td class='grandTd'>" + '$' + grandTotal[0].profit.toFixed(2) + "</td>" +
+            "<td class='grandTd' colspan=7>" + grandTotal[0].pm.toFixed(0) + '%' + "</td>" +
+            "</tr>");
+        $('#grandTotalRow').removeAttr('class', 'sorter-shortDate');
+        $('.grandTd').css('background-color', 'lightsteelblue');
+        $('.grandTd').removeClass('sorter-shortDate');
+
+        $("#table thead:first").after(grandTotalRow);
+
+
+        // // Now we nest
         const nested = d3.nest()
             .key(d => d.affId_offId)
             .entries(merged)
@@ -612,10 +649,6 @@ $(document).ready(function () {
                     filter_defaultFilter: {
                         all: '~{q}'
                     },
-                    filter_selectSourceSeparator: ' ',
-                    filter_excludeFilter: {
-                        'th': 'range'
-                    },
                     filter_external: '.search',
                     filter_saveFilters: false,
                     filter_reset: '.reset',
@@ -644,97 +677,32 @@ $(document).ready(function () {
         const shownDetailRows = $('tr.detail-row:visible').length;
         console.log('showing ', totalRows, ' of ', shownDetailRows, ' details and ', shownSummaryRows, ' summaries');
 
-        // // When clicked, you can see the details and summaries together
-        d3.select("#buttons").select("#showEverything").on("click", function (d) {
-            console.log('clicked show everything');
+        // // For different days, the user can have the option to toggle show all or collapse all
             if (startDateSelect !== endDateSelect) {
-                $("tr.detail-row").show(); // hides the row
+                // $("tr.detail-row").show(); // hides the row
+                $('#showEverything').click(function () {
+                    $('.detail-row').nextAll('tr').each(function () {
+                        $('.summary').show();
+                        $('.detail-row').show();
+                    });
+                });
+
+                $('#collapseEverything').click(function () {
+                    $('.detail-row').nextAll('tr').each(function () {
+                        // if (!($(this).is('.detail-row')))
+                        $('.detail-row').hide();
+                    });
+                });
             }
-        });
-        // then we close if wnated
-        d3.select("#buttons").select("#hideEverything").on("click", function (d) {
-            console.log('clicked hide everything');
-            if (startDateSelect !== endDateSelect && $("tr.detail-row").css('visibility' === 'visible')) {
-                $("tr.detail-row").hide(); // hides the row
-            }
-        });
 
-        // // using d3 to paginate 
-        // const totalBodies = $('tbody').length;
-        // let tbodiesPerPage = totalBodies;
-
-
-        // d3.select("#buttons").datum({
-        //     portion: 0
-        // });
-
-        // // the chain select here pushes the datum onto the up and down buttons also
-        // d3.select("#buttons").select("#first").on("click", function (d) {
-        //     console.log('first clicked');
-        //     console.log('next portion was ', d.portion);
-        //     d3.select(this.parentNode).select('[id="previous-button"]').classed('disabled', true);
-        //     d3.select(this.parentNode).select('[id="next-button"]').classed('disabled', false);
-        //     d.portion = 0;
-        //     redraw(d.portion);
-        // });
-
-        // d3.select("#buttons").select("#previous-button").on("click", function (d) {
-        //     console.log('next portion was ', d.portion);
-        //     if (d.portion - 25 >= 0) {
-        //         d.portion -= 25;
-        //         redraw(d.portion);
-        //     }
-        // });
-
-        // d3.select("#buttons").select("#next-button").on("click", function (d) {
-        //     // let the bodies hit the floor
-        //     console.log('previous portion was', d.portion);
-        //     if (d.portion < (totalBodies - 25)) {
-        //         d.portion += 25;
-        //         redraw(d.portion);
-        //     }
-        // });
-
-        // d3.select("#buttons").select("#last").on("click", function (d) {
-        //     console.log('last clicked');
-        //     d.portion = totalBodies - 25;
-        //     console.log('next portion was ', d.portion);
-        //     d3.select(this.parentNode).select('[id="next"]').classed('disabled', true);
-        //     d3.select(this.parentNode).select('[id="previous"]').classed('disabled', false);
-        //     redraw(d.portion);
-        // });
-
-        // d3.select("#buttons").select("#all-button").on("click", function (d) {
-        //     tbodiesPerPage = totalBodies;
-        //     d.portion = 0;
-        //     // console.log('next portion was ', d.portion);
-        //     d3.select(this.parentNode).select('[id="next"]').classed('disabled', true);
-        //     d3.select(this.parentNode).select('[data-id="previous"]').classed('disabled', true);
-        //     d3.select(this.parentNode).select('[data-id="last"]').classed('disabled', true);
-        //     d3.select(this.parentNode).select('[data-id="first"]').classed('disabled', true);
-        //     d3.select(this.parentNode).select('[data-id="next"]').classed('disabled', true);
-        //     redraw(d.portion);
-        // });
-
-        // function redraw(start) {
-        //     d3
-        //         .select("table")
-        //         .selectAll("tbody")
-        //         .style("display", function (d, i) {
-        //             // console.log('i is now ', i);
-        //             // console.log('start is ', start);
-        //             return i >= start && i < start + tbodiesPerPage ? null : "none";
-        //         });
-        //     if (startDateSelect == endDateSelect) {
-        //         $('.summary').hide();
-        //     }
-        //     if (startDateSelect != endDateSelect) {
-        //         $("tr.detail-row").css("display", "none"); // hides the row
-        //     }
-        // }
-
-        // redraw(0);
-
+        // // If we're in the same day, we don't need to toggle the summary/detail rows
+        if (startDateSelect === endDateSelect) {
+            $("#showEverything").css('display', 'none');
+            $("#collapseEverything").css('display', 'none');
+        } else {
+            $("#showEverything").show();
+            $("#collapseEverything").show();
+        }
 
         $('#table').prepend('<div class="count">' + totalRows + ' total results</div>');
 
@@ -955,3 +923,79 @@ $(document).ready(function () {
 
     });
 });
+
+        // // using d3 to paginate 
+        // const totalBodies = $('tbody').length;
+        // let tbodiesPerPage = totalBodies;    
+
+
+        // d3.select("#buttons").datum({
+        //     portion: 0
+        // });
+
+        // // the chain select here pushes the datum onto the up and down buttons also
+        // d3.select("#buttons").select("#first").on("click", function (d) {
+        //     console.log('first clicked');
+        //     console.log('next portion was ', d.portion);
+        //     d3.select(this.parentNode).select('[id="previous-button"]').classed('disabled', true);
+        //     d3.select(this.parentNode).select('[id="next-button"]').classed('disabled', false);
+        //     d.portion = 0;
+        //     redraw(d.portion);
+        // });
+
+        // d3.select("#buttons").select("#previous-button").on("click", function (d) {
+        //     console.log('next portion was ', d.portion);
+        //     if (d.portion - 25 >= 0) {
+        //         d.portion -= 25;
+        //         redraw(d.portion);
+        //     }
+        // });
+
+        // d3.select("#buttons").select("#next-button").on("click", function (d) {
+        //     // let the bodies hit the floor
+        //     console.log('previous portion was', d.portion);
+        //     if (d.portion < (totalBodies - 25)) {
+        //         d.portion += 25;
+        //         redraw(d.portion);
+        //     }
+        // });
+
+        // d3.select("#buttons").select("#last").on("click", function (d) {
+        //     console.log('last clicked');
+        //     d.portion = totalBodies - 25;
+        //     console.log('next portion was ', d.portion);
+        //     d3.select(this.parentNode).select('[id="next"]').classed('disabled', true);
+        //     d3.select(this.parentNode).select('[id="previous"]').classed('disabled', false);
+        //     redraw(d.portion);
+        // });
+
+        // d3.select("#buttons").select("#all-button").on("click", function (d) {
+        //     tbodiesPerPage = totalBodies;
+        //     d.portion = 0;
+        //     // console.log('next portion was ', d.portion);
+        //     d3.select(this.parentNode).select('[id="next"]').classed('disabled', true);
+        //     d3.select(this.parentNode).select('[data-id="previous"]').classed('disabled', true);
+        //     d3.select(this.parentNode).select('[data-id="last"]').classed('disabled', true);
+        //     d3.select(this.parentNode).select('[data-id="first"]').classed('disabled', true);
+        //     d3.select(this.parentNode).select('[data-id="next"]').classed('disabled', true);
+        //     redraw(d.portion);
+        // });
+
+        // function redraw(start) {
+        //     d3
+        //         .select("table")
+        //         .selectAll("tbody")
+        //         .style("display", function (d, i) {
+        //             // console.log('i is now ', i);
+        //             // console.log('start is ', start);
+        //             return i >= start && i < start + tbodiesPerPage ? null : "none";
+        //         });
+        //     if (startDateSelect == endDateSelect) {
+        //         $('.summary').hide();
+        //     }
+        //     if (startDateSelect != endDateSelect) {
+        //         $("tr.detail-row").css("display", "none"); // hides the row
+        //     }
+        // }
+
+        // redraw(0);
