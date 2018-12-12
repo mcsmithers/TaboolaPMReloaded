@@ -15,6 +15,7 @@ The application uses D3 and Mottie's Tablesorter to create a table from the data
 * Tune
 * Cypress
 * Foundation
+* PHP
 
 ## Action Shots
 ![One Day](OneDay.png "Single Day View")
@@ -23,5 +24,5 @@ The application uses D3 and Mottie's Tablesorter to create a table from the data
 
 ![Multiple Days with Filtering](Filtering.png "Multiple Day View with Filtering")
 
-## To run
-This is running on a private server, however, to get it set up, you would clone the repo then run `npm install` to install all the packages. After that, just go to the server location or use `http-server` for a local one.  Note that the main script is eliminated out of the need of protection of private information.
+## To use
+This is running on a private server, however to examine the code, you would clone the repo.  Note that the main script is edited to protect information, but I have included screen shots to show how this looks in action.
