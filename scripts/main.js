@@ -30,7 +30,7 @@ $(document).ready(function () {
     });
 
 
-    /**************************************************** 
+    /****************************************************
      * Get the report data from all APIs
      ******************************************************/
     var startDate;
@@ -264,7 +264,7 @@ $(document).ready(function () {
         }).fail(failFunction);
 
     /***********************************************************
-     * Mutate the objects to make one bigger object based 
+     * Mutate the objects to make one bigger object based
      * on matching values and perform math to get new vals with es6
      ************************************************************/
 
@@ -736,7 +736,7 @@ $(document).ready(function () {
             position: 'top', // (top, bottom), position of the caption element relative to table, (default: 'bottom')
             ignoreRows: null, // (Number, Number[]), row indices to exclude from the exported file(s) (default: null)
             ignoreCols: null, // (Number, Number[]), column indices to exclude from the exported file(s) (default: null)
-            trimWhitespace: true // (Boolean), remove all leading/trailing newlines, spaces, and tabs from cell text in the exported file(s) (default: false)            
+            trimWhitespace: true // (Boolean), remove all leading/trailing newlines, spaces, and tabs from cell text in the exported file(s) (default: false)
         });
 
         // // clear out the old export buttons
@@ -760,9 +760,9 @@ $(document).ready(function () {
 
     // Chaining everything up
     Promise.all([
-            getNetsphere(startDateSelect, endDateSelect),
-            getTaboola(startDateSelect, endDateSelect),
-            getTune(startDateSelect, endDateSelect)
+            // getNetsphere(startDateSelect, endDateSelect),
+            // getTaboola(startDateSelect, endDateSelect),
+            // getTune(startDateSelect, endDateSelect)
 
         ])
         .then(data => mergeData(...data))
@@ -924,9 +924,9 @@ $(document).ready(function () {
     });
 });
 
-        // // using d3 to paginate 
+        // // using d3 to paginate
         // const totalBodies = $('tbody').length;
-        // let tbodiesPerPage = totalBodies;    
+        // let tbodiesPerPage = totalBodies;
 
 
         // d3.select("#buttons").datum({
